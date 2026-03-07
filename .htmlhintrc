@@ -1,0 +1,7 @@
+{
+  "extends": "htmlhint:recommended",
+  "rules": {
+    "tagname-lowercase": false,
+    "inline-style-disabled": false
+  }
+}
