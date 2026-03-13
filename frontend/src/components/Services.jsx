@@ -497,6 +497,8 @@ export default function Services() {
                         gap: stackGap,
                         width: '100%',
                         overflow: 'clip',
+                        position: 'relative',
+                        zIndex: 3,
                     }}
                 >
                     <div

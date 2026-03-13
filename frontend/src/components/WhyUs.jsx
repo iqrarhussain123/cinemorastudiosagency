@@ -41,7 +41,12 @@ export default function WhyUs() {
                 </div>
 
                 {/* Large statement */}
-                <div style={{ maxWidth: 820, marginBottom: 56 }}>
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, minmax(0, 1fr))',
+                    gap: 0,
+                    marginBottom: 56,
+                }}>
                     <RevealWords
                         as="p"
                         text="We blend creativity with innovation to create measurable outcomes. Our team combines deep industry experience with a commitment to excellence."
@@ -49,9 +54,11 @@ export default function WhyUs() {
                         startDelay={0.06}
                         step={0.024}
                         style={{
+                            gridColumn: isMobile ? '1' : '1 / span 2',
                             fontFamily: 'var(--font-grotesk)', fontWeight: 600,
                             fontSize: 'clamp(18px,2vw,26px)', lineHeight: '1.35em',
                             letterSpacing: '-0.02em', color: 'var(--text-dark)',
+                            maxWidth: isMobile ? '100%' : 820,
                         }}
                     />
                 </div>
@@ -97,11 +104,11 @@ export default function WhyUs() {
                 <div style={{ borderTop: '1px solid rgba(0,0,0,0.11)', paddingTop: isMobile ? 32 : 48 }}>
                     <div style={{
                         display: 'grid',
-                        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-                        gap: isMobile ? 28 : 48,
+                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, minmax(0, 1fr))',
+                        gap: 0,
                         alignItems: 'end',
                     }}>
-                        <div style={{ overflow: 'hidden' }}>
+                        <div style={{ gridColumn: isMobile ? '1' : '1 / span 2', overflow: 'hidden', paddingRight: isMobile ? 0 : 32 }}>
                             <motion.h2
                                 className="section-heading-sm"
                                 style={{ color: 'var(--text-dark)', textTransform: 'uppercase' }}
@@ -115,7 +122,7 @@ export default function WhyUs() {
                         </div>
 
                         {/* Percentage bars */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+                        <div style={{ gridColumn: isMobile ? '1' : '3 / span 2', display: 'flex', flexDirection: 'column', gap: 28 }}>
                             {[
                                 { label: 'Client Satisfaction', pct: 95 },
                                 { label: 'Returning Clients', pct: 80 },

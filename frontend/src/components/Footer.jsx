@@ -3,18 +3,18 @@
 import RollingText from '@/components/RollingText';
 
 const navigationLinks = [
-    { label: 'Home', href: '#hero' },
-    { label: 'About', href: '#about' },
-    { label: 'Case Studies', href: '#work' },
-    { label: 'Services', href: '#services' },
-    { label: 'Journal', href: '#journal' },
-    { label: 'Contact', href: '#contact' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'Home', href: '/#hero' },
+    { label: 'About', href: '/#about' },
+    { label: 'Case Studies', href: '/case-studies' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Journal', href: '/#journal' },
+    { label: 'Enquiry', href: '/enquiry' },
+    { label: 'Support', href: '/support' },
 ];
 
 const legalLinks = [
-    { label: 'Privacy Policy', href: '#contact' },
-    { label: 'Terms of Service', href: '#contact' },
+    { label: 'Privacy Policy', href: '/support' },
+    { label: 'Terms of Service', href: '/support' },
 ];
 
 const connectLinks = [

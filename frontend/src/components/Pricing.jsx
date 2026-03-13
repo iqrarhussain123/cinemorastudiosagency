@@ -15,6 +15,7 @@ const billingModes = [
 const pricingByMode = {
     monthly: [
         {
+            id: 'basic',
             name: 'Basic',
             audience: 'For individuals',
             price: 799,
@@ -28,6 +29,7 @@ const pricingByMode = {
             ],
         },
         {
+            id: 'pro',
             name: 'Pro',
             audience: 'For startups or creators',
             badge: 'Popular',
@@ -46,6 +48,7 @@ const pricingByMode = {
             ],
         },
         {
+            id: 'enterprise',
             name: 'Enterprise',
             audience: 'For established brands',
             price: 8499,
@@ -63,6 +66,7 @@ const pricingByMode = {
     ],
     project: [
         {
+            id: 'launch',
             name: 'Launch',
             audience: 'For one-off sprints',
             price: 2900,
@@ -77,6 +81,7 @@ const pricingByMode = {
             ],
         },
         {
+            id: 'scale',
             name: 'Scale',
             audience: 'For growth websites',
             badge: 'Popular',
@@ -94,6 +99,7 @@ const pricingByMode = {
             ],
         },
         {
+            id: 'flagship',
             name: 'Flagship',
             audience: 'For premium launches',
             price: 12000,
@@ -121,7 +127,9 @@ function AnimatedPrice({ value, cycleKey }) {
             return undefined;
         }
 
-        setDisplayValue(0);
+        const resetFrame = requestAnimationFrame(() => {
+            setDisplayValue(0);
+        });
 
         const controls = animate(0, value, {
             duration: 1.1,
@@ -131,7 +139,10 @@ function AnimatedPrice({ value, cycleKey }) {
             },
         });
 
-        return () => controls.stop();
+        return () => {
+            cancelAnimationFrame(resetFrame);
+            controls.stop();
+        };
     }, [cycleKey, inView, value]);
 
     return (
@@ -142,6 +153,8 @@ function AnimatedPrice({ value, cycleKey }) {
 }
 
 function PricingCard({ plan, index, cycleKey }) {
+    const checkoutHref = `/checkout?billing=${cycleKey}&plan=${plan.id}`;
+
     return (
         <motion.article
             className={`pricing-card${plan.featured ? ' is-featured' : ''}`}
@@ -172,7 +185,7 @@ function PricingCard({ plan, index, cycleKey }) {
                 <span className="pricing-cycle">/{plan.cycle}</span>
             </div>
 
-            <a href="#contact" className="pricing-cta">
+            <a href={checkoutHref} className="pricing-cta">
                 <span className="pricing-cta-rail" aria-hidden="true" />
                 <span className="pricing-cta-label">{plan.cta}</span>
                 <span className="pricing-cta-arrow" aria-hidden="true">
@@ -200,59 +213,61 @@ export default function Pricing() {
             <div className="h-rule" style={{ opacity: 0.1 }} />
 
             <div className="px pricing-shell">
-                <motion.div
-                    className="pricing-header"
-                    initial={{ opacity: 0, y: 36 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.9, ease: revealEase }}
-                >
-                    <span className="pricing-kicker">009 Pricing</span>
-
-                    <h2 id="pricing-title" className="pricing-title">
-                        <span>Pricing</span>
-                        <span>Plans</span>
-                    </h2>
-
-                    <p className="pricing-intro">
-                        Choose a plan that fits your goals or request a custom quote anytime.
-                    </p>
-
-                    <div className="pricing-toggle" role="tablist" aria-label="Pricing mode">
-                        {billingModes.map((mode) => {
-                            const active = billing === mode.id;
-
-                            return (
-                                <button
-                                    key={mode.id}
-                                    type="button"
-                                    role="tab"
-                                    aria-selected={active}
-                                    className={`pricing-toggle-button${active ? ' is-active' : ''}`}
-                                    onClick={() => setBilling(mode.id)}
-                                >
-                                    {active ? <motion.span layoutId="pricing-toggle-pill" className="pricing-toggle-pill" /> : null}
-                                    <span>{mode.label}</span>
-                                </button>
-                            );
-                        })}
-                    </div>
-                </motion.div>
-
-                <AnimatePresence mode="wait">
+                <div className="pricing-stage">
                     <motion.div
-                        key={billing}
-                        className="pricing-grid"
-                        initial={{ opacity: 0, y: 18 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -18 }}
-                        transition={{ duration: 0.4, ease: revealEase }}
+                        className="pricing-header"
+                        initial={{ opacity: 0, y: 36 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.5 }}
+                        transition={{ duration: 0.9, ease: revealEase }}
                     >
-                        {pricingByMode[billing].map((plan, index) => (
-                            <PricingCard key={`${billing}-${plan.name}`} plan={plan} index={index} cycleKey={billing} />
-                        ))}
+                        <span className="pricing-kicker">009 Pricing</span>
+
+                        <h2 id="pricing-title" className="pricing-title">
+                            <span>Pricing</span>
+                            <span>Plans</span>
+                        </h2>
+
+                        <p className="pricing-intro">
+                            Choose a plan that fits your goals or request a custom quote anytime.
+                        </p>
+
+                        <div className="pricing-toggle" role="tablist" aria-label="Pricing mode">
+                            {billingModes.map((mode) => {
+                                const active = billing === mode.id;
+
+                                return (
+                                    <button
+                                        key={mode.id}
+                                        type="button"
+                                        role="tab"
+                                        aria-selected={active}
+                                        className={`pricing-toggle-button${active ? ' is-active' : ''}`}
+                                        onClick={() => setBilling(mode.id)}
+                                    >
+                                        {active ? <motion.span layoutId="pricing-toggle-pill" className="pricing-toggle-pill" /> : null}
+                                        <span>{mode.label}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
                     </motion.div>
-                </AnimatePresence>
+
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={billing}
+                            className="pricing-grid"
+                            initial={{ opacity: 0, y: 18 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -18 }}
+                            transition={{ duration: 0.4, ease: revealEase }}
+                        >
+                            {pricingByMode[billing].map((plan, index) => (
+                                <PricingCard key={`${billing}-${plan.name}`} plan={plan} index={index} cycleKey={billing} />
+                            ))}
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
             </div>
 
             <div className="h-rule" style={{ opacity: 0.1 }} />

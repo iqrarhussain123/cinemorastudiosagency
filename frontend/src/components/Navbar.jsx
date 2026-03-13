@@ -6,20 +6,20 @@ import RollingText from '@/components/RollingText';
 import useViewport from '@/components/useViewport';
 
 const navLinks = [
-    { label: 'Case Studies', badge: '15', href: '#work' },
-    { label: 'Services', href: '#services' },
-    { label: 'About', href: '#about' },
+    { label: 'Case Studies', badge: '15', href: '/case-studies' },
+    { label: 'Services', href: '/#services' },
+    { label: 'About', href: '/#about' },
 ];
 
 const menuItems = [
-    { num: '01', label: 'Home', href: '#hero' },
-    { num: '02', label: 'About', href: '#about' },
-    { num: '03', label: 'Case Studies', href: '#work' },
-    { num: '04', label: 'Services', href: '#services' },
-    { num: '05', label: 'Journal', href: '#journal' },
-    { num: '06', label: 'Team', href: '#team' },
-    { num: '07', label: 'Contact', href: '#contact' },
-    { num: '08', label: 'FAQ', href: '#faq' },
+    { num: '01', label: 'Home', href: '/#hero' },
+    { num: '02', label: 'About', href: '/#about' },
+    { num: '03', label: 'Case Studies', href: '/case-studies' },
+    { num: '04', label: 'Services', href: '/#services' },
+    { num: '05', label: 'Journal', href: '/#journal' },
+    { num: '06', label: 'Team', href: '/#team' },
+    { num: '07', label: 'Contact', href: '/enquiry' },
+    { num: '08', label: 'Support', href: '/support' },
 ];
 
 const drawerVariants = {
@@ -99,7 +99,7 @@ export default function Navbar() {
                     }}
                 >
                     <a
-                        href="#hero"
+                        href="/#hero"
                         style={{
                             fontFamily: 'var(--font-grotesk)',
                             fontWeight: 700,
@@ -158,7 +158,7 @@ export default function Navbar() {
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 10 }}>
                         <a
-                            href="#contact"
+                            href="/enquiry"
                             className="roll-trigger"
                             style={{
                                 display: isMobile ? 'none' : 'inline-flex',

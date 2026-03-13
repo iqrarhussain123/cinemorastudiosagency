@@ -77,14 +77,18 @@ export default function JournalSection() {
                                 ease: [0.16, 1, 0.3, 1],
                             }}
                         >
-                            <div className="journal-image-wrap">
-                                <img src={post.image} alt={post.title} className="journal-image" />
+                            <div className="journal-card-frame">
+                                <div className="journal-image-wrap">
+                                    <img src={post.image} alt={post.title} className="journal-image" />
+                                </div>
                             </div>
-                            <div className="journal-card-meta">
-                                <span>{post.category}</span>
-                                <span>{post.date}</span>
+                            <div className="journal-card-copy">
+                                <div className="journal-card-meta">
+                                    <span>{post.category}</span>
+                                    <span>{post.date}</span>
+                                </div>
+                                <h3>{post.title}</h3>
                             </div>
-                            <h3>{post.title}</h3>
                         </motion.a>
                     ))}
                 </div>

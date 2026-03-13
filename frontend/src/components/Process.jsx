@@ -107,11 +107,11 @@ export default function Process() {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr',
-                    gap: isMobile ? 36 : 80,
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, minmax(0, 1fr))',
+                    gap: 0,
                     alignItems: 'start',
                 }}>
-                    <div style={{ position: isMobile ? 'static' : 'sticky', top: 80 }}>
+                    <div style={{ gridColumn: isMobile ? '1' : '1', position: isMobile ? 'static' : 'sticky', top: 80, paddingRight: isMobile ? 0 : 32 }}>
                         <div style={{ overflow: 'hidden' }}>
                             <framerMotion.motion.h2
                                 className="section-heading"
@@ -129,7 +129,7 @@ export default function Process() {
                         </p>
                     </div>
 
-                    <div>
+                    <div style={{ gridColumn: isMobile ? '1' : '2 / span 3', paddingTop: isMobile ? 36 : 0, paddingLeft: isMobile ? 0 : 32 }}>
                         {steps.map((step, i) => (
                             <ProcessStep
                                 key={step.num}

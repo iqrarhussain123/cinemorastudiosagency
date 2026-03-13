@@ -6,6 +6,9 @@ import RevealWords from '@/components/RevealWords';
 import RollingText from '@/components/RollingText';
 import useViewport from '@/components/useViewport';
 
+const SHOWREEL_POSTER = '/linie-showreel.jpg';
+const SHOWREEL_VIDEO = '/linie-showreel.mp4';
+
 function CountUp({ target, suffix = '', duration = 1800 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.6 });
@@ -34,6 +37,7 @@ function CountUp({ target, suffix = '', duration = 1800 }) {
 
 export default function About() {
   const { isMobile, isTablet } = useViewport();
+  const [showreelUnavailable, setShowreelUnavailable] = useState(false);
 
   return (
     <section id="about" className="section-light">
@@ -70,14 +74,36 @@ export default function About() {
                 cursor: 'pointer',
               }}
             >
-              <img src="/linie-showreel.jpg" alt="Showreel"
-                style={{
-                  width: '100%', height: '100%', objectFit: 'cover',
-                  filter: 'grayscale(100%) brightness(0.6)',
-                  transition: 'filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-                }}
-                className="group-hover:grayscale-0 group-hover:brightness-90 group-hover:scale-105"
-              />
+              {showreelUnavailable ? (
+                <img
+                  src={SHOWREEL_POSTER}
+                  alt="Showreel"
+                  style={{
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: 'grayscale(100%) brightness(0.6)',
+                    transition: 'filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                  className="group-hover:grayscale-0 group-hover:brightness-90 group-hover:scale-105"
+                />
+              ) : (
+                <video
+                  src={SHOWREEL_VIDEO}
+                  poster={SHOWREEL_POSTER}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  onError={() => setShowreelUnavailable(true)}
+                  aria-label="Showreel video"
+                  style={{
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: 'grayscale(100%) brightness(0.6)',
+                    transition: 'filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                  className="group-hover:grayscale-0 group-hover:brightness-90 group-hover:scale-105"
+                />
+              )}
               {/* Play overlay positioned exactly corresponding to the image */}
               <div style={{
                 position: 'absolute', bottom: 0, left: 0, width: '100%',

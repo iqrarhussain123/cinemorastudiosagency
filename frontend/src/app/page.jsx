@@ -1,6 +1,5 @@
 import About from '@/components/About';
 import CaseStudySection from '@/components/CaseStudySection';
-import CustomCursor from '@/components/CustomCursor';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
@@ -19,7 +18,6 @@ import WhyUs from '@/components/WhyUs';
 export default function Page() {
     return (
         <SmoothScrollProvider>
-            <CustomCursor />
             <Navbar />
             <main>
                 <Hero />

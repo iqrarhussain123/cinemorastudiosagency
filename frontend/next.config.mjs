@@ -1,3 +1,8 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const configDir = path.dirname(fileURLToPath(import.meta.url));
+const workspaceRoot = path.join(configDir, '..');
 const isProduction = process.env.NODE_ENV === 'production';
 
 const backendOrigin = process.env.BACKEND_URL ?? 'http://localhost:8000';
@@ -34,6 +39,9 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   productionBrowserSourceMaps: false,
+  turbopack: {
+    root: workspaceRoot,
+  },
 
   async headers() {
     const commonSecurityHeaders = [
